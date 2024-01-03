@@ -1,6 +1,6 @@
 "use server"
 
-import { createSafeAction } from "@/lib/create-safe-actions";
+import { createSafeAction } from "@/lib/create-safe-action";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
