@@ -1,6 +1,6 @@
+import { useCallback, useState } from "react";
 
 import { ActionState, FieldErrors } from "@/lib/create-safe-action"
-import { useCallback, useState } from "react";
 
 type Action<TInput, TOutput> = (data:TInput) => Promise<ActionState<TInput, TOutput>>
 
