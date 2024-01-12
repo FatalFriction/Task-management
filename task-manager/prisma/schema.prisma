@@ -47,6 +47,7 @@ model Card {
   description String? @db.Text
 
   listId      String
+  urls        CardUrl[]
   list        List  @relation(fields: [listId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
@@ -55,16 +56,32 @@ model Card {
   @@index([listId])
 }
 
+model CardUrl {
+  id          String @id @default(uuid())
+  url         String @db.Text
+  order       Int
+
+  cardId      String
+  card        Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([cardId])
+}
+
 enum ACTION {
   CREATE
   UPDATE
   DELETE
+  UPLOAD
 }
 
 enum ENTITY_TYPE {
   BOARD
   LIST
   CARD
+  IMAGE
 }
 
 model AuditLog {
