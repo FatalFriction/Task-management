@@ -10,6 +10,8 @@ export const generateLogMessage = (log: AuditLog) => {
       return `updated ${entityType.toLowerCase()} "${entityTitle}"`;
     case ACTION.DELETE:
       return `deleted ${entityType.toLowerCase()} "${entityTitle}"`;
+    case ACTION.UPLOAD:
+      return `uploaded ${entityType.toLowerCase()} "${entityTitle}"`;
     default:
       return `unknown action ${entityType.toLowerCase()} "${entityTitle}"`;
   };

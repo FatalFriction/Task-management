@@ -13,6 +13,7 @@ import { Description } from "./description";
 import { Actions } from "./actions";
 import { Activity } from "./activity";
 import { ImagesUp } from "./images";
+import { ImagesList } from "./images-list";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);
@@ -27,6 +28,11 @@ export const CardModal = () => {
   const { data: cardUrlData } = useQuery<CardUrlWithCard>({
     queryKey: ["card", id],
     queryFn: () => fetcher(`/api/cards/${id}`),
+  });
+
+  const { data: cardImageData } = useQuery<CardUrlWithCard>({
+    queryKey: ["card-images", id],
+    queryFn: () => fetcher(`/api/cards/${id}/images`),
   });
 
   const { data: auditLogsData } = useQuery<AuditLog[]>({
@@ -51,9 +57,13 @@ export const CardModal = () => {
                 ? <Description.Skeleton />
                 : <Description data={cardData} />
               }
-              {!auditLogsData
+              {!cardUrlData
                 ? <ImagesUp.Skeleton />
                 : <ImagesUp data={cardUrlData} />
+              }
+              {!cardImageData
+                ? <ImagesList.Skeleton />
+                : <ImagesList data={cardImageData}/>
               }
               {!auditLogsData
                 ? <Activity.Skeleton />
