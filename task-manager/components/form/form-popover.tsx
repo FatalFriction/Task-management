@@ -74,7 +74,7 @@ export const FormPopover = ({
                             id="image"
                             errors={fieldErrors}
                         />
-                        <FormInput 
+                        <FormInput
                             id="title"
                             label="Board Title"
                             type="text"
