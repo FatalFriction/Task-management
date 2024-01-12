@@ -7,7 +7,7 @@ import { CardForm } from "./card-form"
 import { cn } from "@/lib/utils"
 import { CardItem } from "./card-item"
 
-import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 interface ListItemProps {
     data: ListWithCards,
