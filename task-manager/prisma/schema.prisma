@@ -59,6 +59,7 @@ model Card {
 model CardUrl {
   id          String @id @default(uuid())
   url         String @db.Text
+  title       String
   order       Int
 
   cardId      String

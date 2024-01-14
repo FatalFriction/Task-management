@@ -1,6 +1,6 @@
 "use client";
 
-import { AlignLeft } from "lucide-react";
+import { AlignLeft, ImagePlusIcon } from "lucide-react";
 import { useState, useRef, ElementRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
@@ -13,9 +13,13 @@ import { useAction } from "@/hooks/use-action";
 import { createImages } from "@/actions/create-images";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
+import { Progress } from "@/components/ui/progress";
+import { useCardModal } from "@/hooks/use-card-modal";
+import Image from "next/image";
+import { CardUrlWithCard } from "@/types";
 
 interface ImagesUpProps {
-  data: any;
+  data: CardUrlWithCard;
 };
 
 export const ImagesUp = ({
@@ -24,12 +28,13 @@ export const ImagesUp = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
+  const cardModal = useCardModal();
 
   const formRef = useRef<ElementRef<"form">>(null);
 
   const { execute, fieldErrors } = useAction(createImages, {
     onSuccess: (data) => {
-      toast.success(`Images "${data.url}" uploaded`);
+      toast.success(`Images "${data.title}" uploaded`);
       formRef.current?.reset();
     },
     onError: (error) => {
@@ -42,11 +47,13 @@ export const ImagesUp = ({
   }
 
   const disableEditing = () => {
+    setFile(null)
     setIsEditing(false);
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
+      setFile(null)
       disableEditing();
     }
   };
@@ -54,23 +61,52 @@ export const ImagesUp = ({
   useEventListener("keydown", onKeyDown);
   useOnClickOutside(formRef, disableEditing);
 
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | null>();
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [customFileName, setCustomFileName] = useState<string>('');
+
+  const onPaste = (event:React.ClipboardEvent<HTMLDivElement>) => {
+    const clipboardData = event.clipboardData || (window as any).clipboardData;
+    const items = clipboardData.items;
+
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            const imageFile = items[i].getAsFile();
+            setFile(imageFile)
+        }
+    }
+  };
 
   const onSubmit = async (formData:FormData) => { 
-    if(!file) return
+    if(!file) {
+      toast.error("Please input an image file")
+      return
+    }
 
-        const final = await uploadImage(file);
-        
+        const final = await uploadImage(file,customFileName, (progress) => {
+          setUploadProgress(progress)
+        });
+
+        let title;
+        setUploadProgress(0)
+        if(!customFileName) {
+         title = file.name as string
+        }
+        else {
+          title = customFileName as string
+        }
         const url = final as string;
         const cardId = data.id as string;
         const boardId = params.boardId as string;
+        console.log(title)
 
-        execute({ url, cardId, boardId });
+        execute({ url,title, cardId, boardId });
+        cardModal.onClose();
   }
 
   return (
     <div className="flex items-start gap-x-3 w-full">
-      <AlignLeft className="h-5 w-5 mt-0.5 text-neutral-700" />
+      <ImagePlusIcon className="h-5 w-5 mt-0.5 text-neutral-700" />
       <div className="w-full">
         <p className="font-semibold text-neutral-700 mb-2">
           Images
@@ -79,18 +115,35 @@ export const ImagesUp = ({
           <form
             action={onSubmit}
             ref={formRef}
-            className="space-y-2"
+            className="space-y-2.5"
           >
             <FormInput
-                id="imagesupload"
-                type="file"
-                placeholder="please upload the images..."
-                accept=".png, .jpg"
-                required
-                onChanges={(e:any) => setFile(e.target?.files[0])}
-                className="min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md"
-                errors={fieldErrors}
+            id="imagesname"
+            type="text"
+            placeholder="Enter custom file name..."
+            value={customFileName}
+            onChanges={(e:any) => setCustomFileName(e.target.value)}
+            className="min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md"
             />
+            <div className="w-full flex flex-row space-x-4">
+              <FormInput
+                  id="imagesupload"
+                  type="file"
+                  placeholder="please upload the images..."
+                  accept=".png, .jpg"
+                  onChanges={(e:any) => setFile(e.target?.files[0])}
+                  className="min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md"
+                  errors={fieldErrors}
+              />
+              <div
+                className="cursor-pointer text-center min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md outline-dashed outline-[0.5px] outline-neutral-500"
+                onPaste={onPaste}
+              >
+                  Click here to then use Control-V to paste the image.
+              </div>
+            </div>
+            {file && <Image src={URL.createObjectURL(file)} alt="Uploaded Image" width={235} height={150} />}
+            <Progress value={uploadProgress} />
             <div className="flex items-center gap-x-2">
               <FormSubmit>
                 Upload

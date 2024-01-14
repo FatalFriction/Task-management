@@ -69,7 +69,6 @@ export const CardModal = () => {
                 ? <Activity.Skeleton />
                 : <Activity items={auditLogsData} />
               }
-              
             </div>
           </div>
           {!cardData

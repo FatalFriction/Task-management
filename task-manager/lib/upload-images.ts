@@ -3,21 +3,28 @@ import { ref, uploadBytesResumable, getDownloadURL, UploadTaskSnapshot } from "f
 
 const storages = storage;
 
-export const uploadImage = (file: File): Promise<string> => {
+export const uploadImage = (
+  file: File,
+  rename: string,
+  progressCallback: (progress: number) => void
+): Promise<string> => {
     const metadata = {
     contentType: file.type
     };
 
   return new Promise((resolve, reject) => {
     
-    const storageRef = ref(storages, `/${file.name}`);
+    const storageRef = rename
+      ? ref(storages, `/${rename}`) 
+      : ref(storages, `/${file.name}`);
+
     const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
     uploadTask.on('state_changed',
       (snapshot: UploadTaskSnapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(`Upload is ${progress}% done`);
-
+        progressCallback(progress)
+        
         switch (snapshot.state) {
           case 'paused':
             console.log('Upload is paused');
@@ -28,7 +35,23 @@ export const uploadImage = (file: File): Promise<string> => {
         }
       },
       (error) => {
-        console.error('Error uploading file:', error);
+        switch (error.code) {
+          case 'storage/unauthorized':
+            console.error('Error unauthorized object access:', error);
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            console.error('Error Upload Cancelled:', error);
+            // User canceled the upload
+            break;
+          case 'storage/object-not-found': 
+          console.error('Error uploading file:', error);
+            break;
+          case 'storage/unknown':
+            console.error('Uknown error occured:', error);
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
         reject(error);
       },
       async () => {
