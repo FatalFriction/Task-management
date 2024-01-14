@@ -18,7 +18,7 @@ const handler = async (data:InputType): Promise<ReturnType> => {
         }
     }
     
-    const { url,cardId,boardId } = data
+    const { url,title,cardId,boardId } = data
     let cardUrl;
 
     try {
@@ -46,24 +46,19 @@ const handler = async (data:InputType): Promise<ReturnType> => {
         cardUrl = await db.cardUrl.create({
             data: {
                 url,
+                title,
                 cardId,
                 order:newOrder,
             }
         })
 
         await createAuditLog({
-            entityId: cardUrl.id,
-            entityTitle: cardUrl.url,
-            entityType: ENTITY_TYPE.CARD,
+            entityId: cardUrl.cardId,
+            entityTitle: cardUrl.title,
+            entityType: ENTITY_TYPE.IMAGE,
             action: ACTION.UPLOAD,
         })
-
-        const boardId = await db.list.findUnique({
-            where: { id: cardId },
-            select: { boardId: true }, // Only select the boardId field for efficiency
-        });
-
-        
+    
     } catch (error) {
         return {
             error: "Failed to create"
