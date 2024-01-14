@@ -21,6 +21,7 @@ interface FormInputProps {
   defaultValue?: string;
   onBlur?: () => void;
   accept?: string;
+  value?: string;
   onChanges?: any;
 };
 
@@ -36,6 +37,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
   defaultValue = "",
   onBlur,
   accept,
+  value,
   onChanges,
 }, ref) => {
   const { pending } = useFormStatus();
@@ -61,6 +63,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
           placeholder={placeholder}
           type={type}
           disabled={pending || disabled}
+          value={value}
           className={cn(
             "text-sm px-2 py-1 h-7",
             className,
