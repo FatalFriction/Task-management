@@ -5,6 +5,7 @@ import { ActivityIcon } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { ActivityItem } from "@/components/activity-item";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ActivityProps {
   items: AuditLog[];
@@ -20,6 +21,7 @@ export const Activity = ({
         <p className="font-semibold text-neutral-700 mb-2">
           Activity
         </p>
+        <ScrollArea className="h-[185px]">
         <ol className="mt-2 space-y-4">
           {items.map((item) => (
             <ActivityItem
@@ -28,6 +30,7 @@ export const Activity = ({
             />
           ))}
         </ol>
+        </ScrollArea>
       </div>
     </div>
   );
