@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { Copy, Trash } from "lucide-react";
+import { Ban, Check, Copy, Loader2, PenSquareIcon, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 
 import { CardWithList } from "@/types";
@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCardModal } from "@/hooks/use-card-modal";
 import { deleteCard } from "@/actions/delete-card";
+import { updateCard } from "@/actions/update-card";
+import { useQueryClient } from "@tanstack/react-query";
+import { UpdateCard } from "@/actions/update-card/schema";
 
 interface ActionsProps {
   data: CardWithList;
@@ -21,6 +24,8 @@ export const Actions = ({
 }: ActionsProps) => {
   const params = useParams();
   const cardModal = useCardModal();
+  
+  const boardId = params.boardId as string;
 
   const { 
     execute: executeCopyCard,
@@ -34,7 +39,15 @@ export const Actions = ({
       toast.error(error);
     },
   });
-
+  
+  const onCopy = () => {
+    
+    executeCopyCard({
+      id: data.id,
+      boardId,
+    });
+  };
+  
   const { 
     execute: executeDeleteCard,
     isLoading: isLoadingDelete,
@@ -48,28 +61,87 @@ export const Actions = ({
     },
   });
 
-  const onCopy = () => {
-    const boardId = params.boardId as string;
-
-    executeCopyCard({
-      id: data.id,
-      boardId,
-    });
-  };
-
   const onDelete = () => {
-    const boardId = params.boardId as string;
 
     executeDeleteCard({
       id: data.id,
       boardId,
     });
   };
+
+  const queryClient = useQueryClient();
+
+  const { execute } = useAction(updateCard, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["card", data.id]
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["card-logs", data.id]
+      });
+
+      // toast.success(`Renamed to "${data.title}"`);
+      // setTitle(data.title);
+    },
+    onError: (error) => {
+      toast.error(error);
+    }
+  });
+
+  const { 
+    execute: executeStatusCard,
+    isLoading: isLoadingStatus,
+  } = useAction(updateCard, {
+    onSuccess: (data) => {
+      toast.success(`Card "${data.status}" `);
+      cardModal.onClose();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onDraft = () => {
+
+    executeStatusCard({
+      id: data.id,
+      boardId,
+      status: "DRAFT",
+    });
+  };
+  
+  const onPending = () => {
+
+    executeStatusCard({
+      id: data.id,
+      boardId,
+      status: "PENDING",
+    });
+  };
+  
+  const onComplete = () => {
+
+    executeStatusCard({
+      id: data.id,
+      boardId,
+      status: "COMPLETE",
+    });
+  };
+
+  const onCancel = () => {
+
+    executeStatusCard({
+      id: data.id,
+      boardId,
+      status: "CANCELLED",
+    });
+  };
   
   return (
     <div className="space-y-2 mt-2">
       <p className="text-xs font-semibold">
-        Actions
+        Card Actions
       </p>
       <Button
         onClick={onCopy}
@@ -91,6 +163,51 @@ export const Actions = ({
         <Trash className="h-4 w-4 mr-2" />
         Delete
       </Button>
+      <div className="pt-[53px] space-y-2">
+        <p className="text-xs font-semibold">
+          Status Actions
+        </p>
+        <Button
+          onClick={onDraft}
+          disabled={isLoadingStatus}
+          variant="draft"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <PenSquareIcon className="h-4 w-4 mr-2" />
+          DRAFT
+        </Button>
+        <Button
+          onClick={onPending}
+          disabled={isLoadingStatus}
+          variant="pending"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Loader2 className="h-4 w-4 mr-2" />
+          PENDING
+        </Button>
+        <Button
+          onClick={onComplete}
+          disabled={isLoadingStatus}
+          variant="complete"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Check className="h-4 w-4 mr-2" />
+          COMPLETE
+        </Button>
+        <Button
+          onClick={onCancel}
+          disabled={isLoadingStatus}
+          variant="destructive"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Ban className="h-4 w-4 mr-2" />
+          CANCELLED
+        </Button>
+      </div>
     </div>
   );
 };
