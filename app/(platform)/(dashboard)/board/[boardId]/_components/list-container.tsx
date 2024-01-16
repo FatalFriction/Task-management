@@ -11,6 +11,7 @@ import { updateCardOrder } from "@/actions/update-card-order";
 
 import { ListForm } from "./list-form";
 import { ListItem } from "./list-item";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ListContainerProps {
   data: ListWithCards[];
@@ -153,11 +154,14 @@ export const ListContainer = ({
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="lists" type="list" direction="horizontal">
+        
+      
         {(provided) => (
+          <ScrollArea className="h-[800px]">
           <ol
             {...provided.droppableProps}
             ref={provided.innerRef}  
-            className="flex gap-x-3 h-full black"
+            className="grid grid-cols-6 gap-y-6 h-full black"
           >
             {orderedData.map((list, index) => {
               return (
@@ -172,6 +176,7 @@ export const ListContainer = ({
             <ListForm />
             <div className="flex-shrink-0 w-1" />
           </ol>
+        </ScrollArea>
         )}
       </Droppable>
     </DragDropContext>
