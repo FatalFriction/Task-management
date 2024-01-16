@@ -40,11 +40,20 @@ model List {
   @@index([boardId])
 }
 
+enum TaskStatus {
+  DRAFT
+  PENDING
+  COMPLETE
+  CANCELLED
+}
+
+
 model Card {
   id          String @id @default(uuid())
   title       String
   order       Int
   description String? @db.Text
+  status      TaskStatus
 
   listId      String
   urls        CardUrl[]
