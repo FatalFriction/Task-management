@@ -59,9 +59,13 @@ const BoardIdLayout = async ({
                 <Image
                     src={board.imageFullUrl}
                     alt="board images"
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center"
+                    quality={50}
+                    priority
+                    fill
+                    sizes="70vw"
+                    loading="eager"
+                    className="relative"
+                    style={{ objectFit: 'cover'}}
                 />
                 <BoardNavbar data={board}/>
                 <div className="absolute inset-0 bg-black/10"/>
