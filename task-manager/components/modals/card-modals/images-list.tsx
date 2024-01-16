@@ -52,7 +52,7 @@ export const ImagesList = ({
                     className="py-2.5 w-auto h-auto cursor-pointer rounded-xl"
                 />
                 <div className="font-medium text-neutral-600">
-                  <p className="w-[350px] truncate">{item.title}</p>
+                  <p className="w-[470px] truncate">{item.title}</p>
                   <p>{format(new Date(item.createdAt), "MMM d, yyyy 'at' h:mm a")}</p>
                 </div>
                 {!item
@@ -61,7 +61,7 @@ export const ImagesList = ({
                 }
             </div>
             ))}
-        </ScrollArea>
+            </ScrollArea>
         }
         {expandedImageUrl && (
           <ExpandedImageModal imageUrl={expandedImageUrl} onClose={handleCloseModal} />

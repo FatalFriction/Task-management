@@ -12,7 +12,7 @@ export const ActivityItem = ({
   data,
 }: ActivityItemProps) => {
   return (
-    <li className="flex items-center gap-x-2">
+    <li className="flex items-center gap-x-2 mt-3.5">
       <Avatar className="h-8 w-8">
         <AvatarImage src={data.userImage} />
       </Avatar>
