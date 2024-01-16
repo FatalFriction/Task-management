@@ -54,6 +54,7 @@ const handler = async (data:InputType): Promise<ReturnType> => {
                     createMany: {
                         data: listToCopy.cards.map((card) => ({
                             title: card.title,
+                            status: card.status,
                             description: card.description,
                             order: card.order,
                         }))

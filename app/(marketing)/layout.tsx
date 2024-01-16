@@ -4,7 +4,7 @@ import { Footer } from './_components/Footer'
 const layout = ({
     children
 } : { 
-    children: React.reactNode;
+    children: React.ReactNode;
 }) => {
   return (
     <div className="h-full bg-slate-100">
