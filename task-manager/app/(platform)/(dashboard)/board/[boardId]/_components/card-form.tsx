@@ -62,9 +62,10 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
     const listId = formData.get("listId") as string;
+    const status = "DRAFT"
     const boardId = params.boardId as string;
 
-    execute({ title, listId, boardId });
+    execute({ title,status, listId, boardId });
   };
 
   if (isEditing) {

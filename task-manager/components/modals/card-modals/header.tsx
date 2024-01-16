@@ -59,6 +59,7 @@ export const Header = ({
     execute({
       title,
       boardId,
+      status: data.status,
       id: data.id,
     });
   }
@@ -77,7 +78,7 @@ export const Header = ({
           />
         </form>
         <p className="text-sm text-muted-foreground">
-          in list <span className="underline">{data.list.title}</span>
+          in list <span className="underline">{data.list.title}</span> - status: <span className="underline">{data.status}</span>
         </p>
       </div>
     </div>
