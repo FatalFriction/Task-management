@@ -50,6 +50,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     card = await db.card.create({
       data: {
         title: `${cardToCopy.title} - Copy`,
+        status: cardToCopy.status,
         description: cardToCopy.description,
         order: newOrder,
         listId: cardToCopy.listId,
