@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const statusEnum = z.enum(["DRAFT", "PENDING", "COMPLETE", "CANCELLED"]);
+
 export const UpdateCard = z.object({
   boardId: z.string(),
   description: z.optional(
@@ -18,5 +20,6 @@ export const UpdateCard = z.object({
       message: "Title is too short",
     })
   ),
+  status: statusEnum,
   id: z.string(),
 });
