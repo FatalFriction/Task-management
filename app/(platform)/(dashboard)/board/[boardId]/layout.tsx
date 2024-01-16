@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { notFound, redirect } from "next/navigation";
 import { BoardNavbar } from "./_components/board-navbar";
+import Image from "next/image";
 
 export async function generateMetadata({
     params,
@@ -53,15 +54,21 @@ const BoardIdLayout = async ({
     }
 
     return (
-        <div
-            className="relative h-full bg-no-repeat bg-cover bg-center "
-            style={{ backgroundImage: `url(${board.imageFullUrl})`}}
-        >
-            <BoardNavbar data={board}/>
-            <div className="absolute inset-0 bg-black/10"/>
-            <main className="relative pt-28  h-full">
-                {children}
-            </main>
+        <div className="relative h-full">
+            <div>
+                <Image
+                    src={board.imageFullUrl}
+                    alt="board images"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center"
+                />
+                <BoardNavbar data={board}/>
+                <div className="absolute inset-0 bg-black/10"/>
+                <main className="relative pt-28 h-full">
+                    {children}
+                </main>
+            </div>
         </div>
     )
 }
