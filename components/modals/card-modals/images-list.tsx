@@ -50,6 +50,7 @@ export const ImagesList = ({
                     height={100}
                     onClick={() => handleImageClick(item.url)}
                     className="py-2.5 w-auto h-auto cursor-pointer rounded-xl"
+                    quality={40}
                 />
                 <div className="font-medium text-neutral-600">
                   <p className="w-[470px] truncate">{item.title}</p>
