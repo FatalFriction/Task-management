@@ -4,16 +4,15 @@ import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAc8tanQnhOrYxQs37VbP1HN4nPT3F96Ac",
-  authDomain: "taskify-410720.firebaseapp.com",
-  projectId: "taskify-410720",
-  storageBucket: "taskify-410720.appspot.com",
-  messagingSenderId: "354997298143",
-  appId: "1:354997298143:web:6f69b39c6f675cbf99da6a",
-  measurementId: "G-TDGCYW30YQ"
+  // Add your API key here
+  apiKey: process.env.FBASE_API_KEY,
+  authDomain: process.env.FBASE_AUTH_DOMAIN,
+  projectId: process.env.FBASE_PROJECT_ID,
+  storageBucket: process.env.FBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FBASE_APP_ID,
+  measurementId: process.env.FBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
