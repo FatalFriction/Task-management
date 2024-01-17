@@ -13,7 +13,7 @@ export const CreateImages = z.object({
     }).min(3,{
         message: "Title is too short"
     }).max(70,{
-        message: "Title is too short"
+        message: "Title is too long"
     }),
     cardId: z.string(),
     boardId: z.string(),
