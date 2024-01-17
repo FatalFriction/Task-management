@@ -57,9 +57,9 @@ const BoardIdLayout = async ({
         <Image
           src={board.imageFullUrl}
           alt="board images"
-          quality={100} // Use higher quality image
+          quality={90} // Use higher quality image
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, (max-width: 1560px) 120vw, 45vw"
           loading="eager"
           className="relative"
           style={{ objectFit: "cover" }}
