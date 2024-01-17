@@ -185,16 +185,6 @@ export const Actions = ({
           PENDING
         </Button>
         <Button
-          onClick={onReview}
-          disabled={isLoadingStatus}
-          variant="review"
-          className="w-full justify-start"
-          size="inline"
-        >
-          <Ban className="h-4 w-4 mr-2" />
-          INREVIEW
-        </Button>
-        <Button
           onClick={onComplete}
           disabled={isLoadingStatus}
           variant="complete"
