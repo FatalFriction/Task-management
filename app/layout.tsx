@@ -28,7 +28,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <link rel="preconnect" href="https://sacred-goldfish-88.clerk.accounts.dev" />
-        <link rel="preconnect" href="https://img.clerk.com" />
           {children}
       </body>
     </html>
