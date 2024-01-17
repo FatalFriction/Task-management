@@ -14,6 +14,7 @@ import { Actions } from "./actions";
 import { Activity } from "./activity";
 import { ImagesUp } from "./images";
 import { ImagesList } from "./images-list";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);
@@ -51,6 +52,7 @@ export const CardModal = () => {
       onOpenChange={onClose}
     >
       <DialogContent>
+      <ScrollArea className="h-[550px] px-5 xl:h-full xl:px-0">
         {!cardData
           ? <Header.Skeleton />
           : <Header data={cardData} />
@@ -84,6 +86,7 @@ export const CardModal = () => {
             )
           )}
         </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

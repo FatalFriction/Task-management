@@ -155,7 +155,7 @@ export const Actions = ({
         <Trash className="h-4 w-4 mr-2" />
         Delete
       </Button>
-      <div className="pt-[53px] space-y-2">
+      <div className="pt-4 xl:pt-[53px] space-y-2">
         <p className="text-xs font-semibold">
           Status Actions
         </p>

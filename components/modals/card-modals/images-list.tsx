@@ -39,17 +39,18 @@ export const ImagesList = ({
         </p>
         {dataArray.length === 0
           ? <div className="min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md"> Upload your first Image</div>
-          : <ScrollArea className="h-[250px]">
+          : <ScrollArea className="h-[180px] xl:h-[250px]">
             {dataArray.map((item) => (
-            <div key={item.id} className="grid grid-flow-col w-full space-x-2.5 space-y-2.5">
+            <div key={item.id} className="grid grid-flow-row xl:grid-flow-col w-full xl:space-x-2.5 xl:space-y-2.5 gap-0.5">
                 <Image
                     src={item.url}
                     alt={item.card.id}
-                    width={100}
+                    height={150}
+                    width={150}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, (max-width: 1560px) 120vw, 35vw"
                     loading="lazy"
-                    height={100}
                     onClick={() => handleImageClick(item.url)}
-                    className="py-2.5 w-auto h-auto cursor-pointer rounded-xl"
+                    className="pt-8 xl:py-2.5 cursor-pointer rounded-xl"
                     quality={40}
                 />
                 <div className="font-medium text-neutral-600">

@@ -149,7 +149,7 @@ export const ImagesUp = ({
                   errors={fieldErrors}
               />
               <div
-                className="cursor-pointer text-center min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md outline-dashed outline-[0.5px] outline-neutral-500"
+                className="hidden xl:block cursor-pointer text-center min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md outline-dashed outline-[0.5px] outline-neutral-500"
                 onPaste={onPaste}
               >
                   Click here to then use Control-V to paste the image

@@ -54,7 +54,7 @@ export const ImagesActions = ({
   };
   
   return (
-    <div className="flex flex-col space-y-2 mt-2">
+    <div className="flex flex-row xl:flex-col space-x-2 xl:space-x-0 xl:space-y-2 mt-2">
       <Button
         onClick={onDelete}
         disabled={isLoadingDelete || isInProgress}

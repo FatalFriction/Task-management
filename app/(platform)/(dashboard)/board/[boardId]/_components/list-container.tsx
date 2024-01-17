@@ -139,11 +139,11 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="lists" type="list" direction="horizontal">
         {(provided) => (
-          <ScrollArea className="h-[800px]">
+          <ScrollArea className="h-[540px] xl:h-[800px]">
             <ol
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="grid grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-y-6 h-full black"
+              className="grid grid-cols-1 xl:grid-cols-4 2xl:grid-cols-6 gap-y-6 h-full black overflow-hidden"
             >
               {orderedData.map((list, index) => (
                 <ListItem key={list.id} index={index} data={list} />
