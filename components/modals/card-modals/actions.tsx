@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { Ban, Check, Copy, Loader2, PenSquareIcon, Trash } from "lucide-react";
+import { Ban, Check, Copy, FileClock, Loader2, PenSquareIcon, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 
 import { CardWithList } from "@/types";
@@ -18,11 +18,13 @@ import { Revision } from "./revision";
 interface ActionsProps {
   data: CardWithList;
   ids?: string;
+  role?: any;
 };
 
 export const Actions = ({
   data,
   ids,
+  role
 }: ActionsProps) => {
   const params = useParams();
   const cardModal = useCardModal();
@@ -89,7 +91,6 @@ export const Actions = ({
   });
 
   const onDraft = () => {
-
     executeStatusCard({
       id: data.id,
       boardId,
@@ -98,7 +99,6 @@ export const Actions = ({
   };
   
   const onPending = () => {
-
     executeStatusCard({
       id: data.id,
       boardId,
@@ -107,7 +107,6 @@ export const Actions = ({
   };
   
   const onComplete = () => {
-
     executeStatusCard({
       id: data.id,
       boardId,
@@ -116,7 +115,6 @@ export const Actions = ({
   };
 
   const onCancel = () => {
-
     executeStatusCard({
       id: data.id,
       boardId,
@@ -125,7 +123,6 @@ export const Actions = ({
   };
 
   const onReview = () => {
-
     executeStatusCard({
       id: data.id,
       boardId,
@@ -189,7 +186,7 @@ export const Actions = ({
           className="w-full justify-start"
           size="inline"
         >
-          <Ban className="h-4 w-4 mr-2" />
+          <FileClock className="h-4 w-4 mr-2" />
           IN-REVIEW
         </Button>
         <Button
@@ -216,7 +213,7 @@ export const Actions = ({
       <div className="pt-[23px] space-y-4">
         {!data
           ? <Revision.Skeleton />
-          : <Revision data={data} />
+          : <Revision data={data} role={role} />
         }
       </div>
     </div>
