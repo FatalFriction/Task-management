@@ -6,7 +6,8 @@ const storages = storage;
 export const uploadImage = (
   file: File,
   rename: string,
-  progressCallback: (progress: number) => void
+  progressCallback: (progress: number) => void,
+  id?: string,
 ): Promise<string> => {
     const metadata = {
     contentType: file.type
@@ -15,8 +16,8 @@ export const uploadImage = (
   return new Promise((resolve, reject) => {
     
     const storageRef = rename
-      ? ref(storages, `/${rename}`) 
-      : ref(storages, `/${file.name}`);
+      ? ref(storages, `${id}/${rename}`) 
+      : ref(storages, `${id}/${file.name}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
