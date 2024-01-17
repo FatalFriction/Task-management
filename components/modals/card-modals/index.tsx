@@ -59,7 +59,7 @@ export const CardModal = () => {
               }
               {!cardUrlData
                 ? <ImagesUp.Skeleton />
-                : <ImagesUp data={cardUrlData} />
+                : <ImagesUp data={cardUrlData} ids={id} />
               }
               {!cardImageData
                 ? <ImagesList.Skeleton />
@@ -71,10 +71,13 @@ export const CardModal = () => {
               }
             </div>
           </div>
-          {!cardData
-            ? <Actions.Skeleton />
-            : <Actions data={cardData} />
-          }
+          {!cardData ? (
+            <Actions.Skeleton />
+            ) : (
+            cardUrlData && cardImageData && (
+              <Actions data={cardData} ids={id} datas={cardImageData} />
+            )
+          )}
         </div>
       </DialogContent>
     </Dialog>
