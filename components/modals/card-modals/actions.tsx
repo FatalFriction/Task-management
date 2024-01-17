@@ -13,6 +13,7 @@ import { useCardModal } from "@/hooks/use-card-modal";
 import { deleteCard } from "@/actions/delete-card";
 import { updateCard } from "@/actions/update-card";
 import { deleteImageBucket } from "@/lib/delete-images";
+import { Revision } from "./revision";
 
 interface ActionsProps {
   data: CardWithList;
@@ -124,6 +125,15 @@ export const Actions = ({
       status: "CANCELLED",
     });
   };
+
+  const onReview = () => {
+
+    executeStatusCard({
+      id: data.id,
+      boardId,
+      status: "INREVIEW",
+    });
+  };
   
   return (
     <div className="space-y-2 mt-2">
@@ -175,6 +185,16 @@ export const Actions = ({
           PENDING
         </Button>
         <Button
+          onClick={onReview}
+          disabled={isLoadingStatus}
+          variant="destructive"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Ban className="h-4 w-4 mr-2" />
+          INREVIEW
+        </Button>
+        <Button
           onClick={onComplete}
           disabled={isLoadingStatus}
           variant="complete"
@@ -194,6 +214,12 @@ export const Actions = ({
           <Ban className="h-4 w-4 mr-2" />
           CANCELLED
         </Button>
+      </div>
+      <div className="pt-[23px] space-y-4">
+        {!data
+          ? <Revision.Skeleton />
+          : <Revision data={data} />
+        }
       </div>
     </div>
   );
