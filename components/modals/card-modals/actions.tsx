@@ -190,7 +190,7 @@ export const Actions = ({
           size="inline"
         >
           <Ban className="h-4 w-4 mr-2" />
-          INREVIEW
+          IN-REVIEW
         </Button>
         <Button
           onClick={onComplete}
