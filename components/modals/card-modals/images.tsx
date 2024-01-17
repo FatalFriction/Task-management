@@ -1,6 +1,6 @@
 "use client";
 
-import { AlignLeft, ImagePlusIcon } from "lucide-react";
+import { ImagePlusIcon } from "lucide-react";
 import { useState, useRef, ElementRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
@@ -152,7 +152,7 @@ export const ImagesUp = ({
                 className="cursor-pointer text-center min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md outline-dashed outline-[0.5px] outline-neutral-500"
                 onPaste={onPaste}
               >
-                  Click here to then use Control-V to paste the image.
+                  Click here to then use Control-V to paste the image
               </div>
             </div>
             {file && <Image src={URL.createObjectURL(file)} alt="Uploaded Image" width={150} height={180}/>}

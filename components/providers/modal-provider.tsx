@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 
-import { CardModal } from "@/components/modals/card-modals";
-import { ProModal } from "@/components/modals/pro-modal";
+const CardModal = dynamic(() => import('@/components/modals/card-modals').then((mod) => mod.CardModal));
+const ProModal = dynamic(() => import('@/components/modals/pro-modal').then((mod) => mod.ProModal));
 
 interface ModalProviderProps {
   children: React.ReactNode;
