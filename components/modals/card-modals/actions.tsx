@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Ban, Check, Copy, Loader2, PenSquareIcon, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 
-import { CardWithList } from "@/types";
+import { CardUrlWithCard, CardWithList } from "@/types";
 import { useAction } from "@/hooks/use-action";
 import { copyCard } from "@/actions/copy-card";
 import { Button } from "@/components/ui/button";
@@ -12,15 +12,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useCardModal } from "@/hooks/use-card-modal";
 import { deleteCard } from "@/actions/delete-card";
 import { updateCard } from "@/actions/update-card";
-import { useQueryClient } from "@tanstack/react-query";
-import { UpdateCard } from "@/actions/update-card/schema";
+import { deleteImageBucket } from "@/lib/delete-images";
 
 interface ActionsProps {
   data: CardWithList;
+  ids?: string;
+  datas: CardUrlWithCard;
 };
 
 export const Actions = ({
   data,
+  ids,
+  datas,
 }: ActionsProps) => {
   const params = useParams();
   const cardModal = useCardModal();
@@ -41,7 +44,6 @@ export const Actions = ({
   });
   
   const onCopy = () => {
-    
     executeCopyCard({
       id: data.id,
       boardId,
@@ -53,7 +55,7 @@ export const Actions = ({
     isLoading: isLoadingDelete,
   } = useAction(deleteCard, {
     onSuccess: (data) => {
-      toast.success(`Card "${data.title}" deleted`);
+      toast.success(`Card "${data.title}" deleted ${ids}`);
       cardModal.onClose();
     },
     onError: (error) => {
@@ -62,32 +64,17 @@ export const Actions = ({
   });
 
   const onDelete = () => {
-
+    try {
+      deleteImageBucket(ids as string)
+    } catch (error: any) {
+      toast.error(error)
+      return
+    }
     executeDeleteCard({
       id: data.id,
       boardId,
     });
   };
-
-  const queryClient = useQueryClient();
-
-  const { execute } = useAction(updateCard, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: ["card", data.id]
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["card-logs", data.id]
-      });
-
-      // toast.success(`Renamed to "${data.title}"`);
-      // setTitle(data.title);
-    },
-    onError: (error) => {
-      toast.error(error);
-    }
-  });
 
   const { 
     execute: executeStatusCard,

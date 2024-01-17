@@ -38,7 +38,7 @@ export const ImagesActions = ({
 
   const onDelete = () => {
     const boardId = params.boardId as string;
-    deleteImage(data.title)
+    deleteImage(data.card.id, data.title)
 
     executedeleteCardUrl({
       id: data.id,

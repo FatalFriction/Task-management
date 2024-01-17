@@ -15,7 +15,7 @@ interface ImagesListProps {
 };
 
 export const ImagesList = ({
-  data
+  data,
 }: ImagesListProps) => {
 
     const [expandedImageUrl, setExpandedImageUrl] = useState<string | null>(null);
