@@ -2,6 +2,9 @@
 
 import { toast } from "sonner";
 import { Plus, X } from "lucide-react";
+const FormSubmit = dynamic(() => import("@/components/form/form-submit").then((mod) => mod.FormSubmit));
+const FormTextarea = dynamic(() => import("@/components/form/form-textarea").then((mod) => mod.FormTextarea));
+const Button = dynamic(() => import("@/components/ui/button").then((mod) => mod.Button));
 import { 
   forwardRef, 
   useRef, 
@@ -13,9 +16,8 @@ import { useOnClickOutside, useEventListener } from "usehooks-ts";
 
 import { useAction } from "@/hooks/use-action";
 import { createCard } from "@/actions/create-card";
-import { Button } from "@/components/ui/button";
-import { FormSubmit } from "@/components/form/form-submit";
-import { FormTextarea } from "@/components/form/form-textarea";
+
+import dynamic from "next/dynamic";
 
 interface CardFormProps {
   listId: string;
