@@ -20,10 +20,12 @@ import { CardUrlWithCard } from "@/types";
 
 interface ImagesUpProps {
   data: CardUrlWithCard;
+  ids?: string;
 };
 
 export const ImagesUp = ({
-  data
+  data,
+  ids
 }: ImagesUpProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
@@ -31,78 +33,90 @@ export const ImagesUp = ({
   const cardModal = useCardModal();
 
   const formRef = useRef<ElementRef<"form">>(null);
-
-  const { execute, fieldErrors } = useAction(createImages, {
-    onSuccess: (data) => {
-      toast.success(`Images "${data.title}" uploaded`);
-      formRef.current?.reset();
-    },
-    onError: (error) => {
-      toast.error(error);
-    },
-  });
+  
+  const [file, setFile] = useState<File | null>();
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [customFileName, setCustomFileName] = useState<string>('');
 
   const enableEditing = () => {
     setIsEditing(true);
   }
-
+  
   const disableEditing = () => {
     setFile(null)
+    setCustomFileName('');
     setIsEditing(false);
   };
-
+  
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       setFile(null)
       disableEditing();
     }
   };
-
+  
   useEventListener("keydown", onKeyDown);
   useOnClickOutside(formRef, disableEditing);
-
-  const [file, setFile] = useState<File | null>();
-  const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [customFileName, setCustomFileName] = useState<string>('');
-
+  
   const onPaste = (event:React.ClipboardEvent<HTMLDivElement>) => {
     const clipboardData = event.clipboardData || (window as any).clipboardData;
     const items = clipboardData.items;
-
+    
     for (let i = 0; i < items.length; i++) {
-        if (items[i].type.indexOf('image') !== -1) {
-            const imageFile = items[i].getAsFile();
-            setFile(imageFile)
-        }
+      if (items[i].type.indexOf('image') !== -1) {
+        const imageFile = items[i].getAsFile();
+        setFile(imageFile)
+      }
     }
   };
+  
+    const { execute, fieldErrors } = useAction(createImages, {
+      onSuccess: (data) => {
+        toast.success(`Images "${data.title}" uploaded`);
+        formRef.current?.reset();
+      },
+      onError: (error) => {
+        toast.error(`error occured : ${error}`);
+      },
+    });
 
-  const onSubmit = async (formData:FormData) => { 
-    if(!file) {
-      toast.error("Please input an image file")
-      return
+    const onSubmit = async (formData:FormData) => { 
+      if(!file) {
+        toast.error("Please input an image file")
+        return
+      }
+      
+      let title;
+      if(!customFileName) {
+        title = file.name as string
+      }
+      else {
+        title = customFileName as string
+      }
+        
+      // Check if the title exceeds the maximum allowed length
+      if (customFileName.length > 70) {
+        toast.error("Title is longer than 70 characters, Please rename it shorter.");
+        return;
+      }
+      else if(title!== customFileName)if(customFileName||title === "image.png") {
+        toast.error("Please input an image name")
+        return
+      }
+      
+      const final = await uploadImage(file,customFileName, (progress) => {
+        setUploadProgress(progress)
+      }, ids);
+
+      setUploadProgress(0)
+      const url = final as string;
+      const cardId = data.id as string;
+      const boardId = params.boardId as string;
+      console.log(title)
+
+      execute({ url, title, cardId, boardId });
+      cardModal.onClose();
     }
-
-        const final = await uploadImage(file,customFileName, (progress) => {
-          setUploadProgress(progress)
-        });
-
-        let title;
-        setUploadProgress(0)
-        if(!customFileName) {
-         title = file.name as string
-        }
-        else {
-          title = customFileName as string
-        }
-        const url = final as string;
-        const cardId = data.id as string;
-        const boardId = params.boardId as string;
-        console.log(title)
-
-        execute({ url,title, cardId, boardId });
-        cardModal.onClose();
-  }
 
   return (
     <div className="flex items-start gap-x-3 w-full">
@@ -121,7 +135,7 @@ export const ImagesUp = ({
             id="imagesname"
             type="text"
             placeholder="Enter custom file name..."
-            value={customFileName}
+            defaultValue={customFileName}
             onChanges={(e:any) => setCustomFileName(e.target.value)}
             className="min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md"
             />
@@ -130,7 +144,7 @@ export const ImagesUp = ({
                   id="imagesupload"
                   type="file"
                   placeholder="please upload the images..."
-                  accept=".png, .jpg"
+                  accept=".png, .jpg, .jpeg"
                   onChanges={(e:any) => setFile(e.target?.files[0])}
                   className="min-h-[42px] bg-neutral-100 text-sm font-medium py-2.5 rounded-md"
                   errors={fieldErrors}
@@ -142,7 +156,7 @@ export const ImagesUp = ({
                   Click here to then use Control-V to paste the image.
               </div>
             </div>
-            {file && <Image src={URL.createObjectURL(file)} alt="Uploaded Image" width={235} height={150} />}
+            {file && <Image src={URL.createObjectURL(file)} alt="Uploaded Image" width={150} height={180}/>}
             <Progress value={uploadProgress} />
             <div className="flex items-center gap-x-2">
               <FormSubmit>
