@@ -75,7 +75,7 @@ export const CardModal = () => {
             <Actions.Skeleton />
             ) : (
             cardUrlData && cardImageData && (
-              <Actions data={cardData} ids={id} datas={cardImageData} />
+              <Actions data={cardData} ids={id} />
             )
           )}
         </div>

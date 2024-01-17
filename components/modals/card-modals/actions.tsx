@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Ban, Check, Copy, Loader2, PenSquareIcon, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 
-import { CardUrlWithCard, CardWithList } from "@/types";
+import { CardWithList } from "@/types";
 import { useAction } from "@/hooks/use-action";
 import { copyCard } from "@/actions/copy-card";
 import { Button } from "@/components/ui/button";
@@ -18,13 +18,11 @@ import { Revision } from "./revision";
 interface ActionsProps {
   data: CardWithList;
   ids?: string;
-  datas: CardUrlWithCard;
 };
 
 export const Actions = ({
   data,
   ids,
-  datas,
 }: ActionsProps) => {
   const params = useParams();
   const cardModal = useCardModal();
@@ -160,7 +158,7 @@ export const Actions = ({
         <Trash className="h-4 w-4 mr-2" />
         Delete
       </Button>
-      <div className="pt-[53px] space-y-2.5">
+      <div className="pt-[53px] space-y-2">
         <p className="text-xs font-semibold">
           Status Actions
         </p>
@@ -183,6 +181,16 @@ export const Actions = ({
         >
           <Loader2 className="h-4 w-4 mr-2" />
           PENDING
+        </Button>
+        <Button
+          onClick={onReview}
+          disabled={isLoadingStatus}
+          variant="review"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Ban className="h-4 w-4 mr-2" />
+          INREVIEW
         </Button>
         <Button
           onClick={onComplete}
