@@ -40,6 +40,11 @@ export const CardModal = () => {
     queryFn: () => fetcher(`/api/cards/${id}/logs`),
   });
 
+  const { data: userRole } = useQuery<[]>({
+    queryKey: ["user-role"],
+    queryFn: () => fetcher(`/api/role`),
+  });
+
   return (
     <Dialog
       open={isOpen}
@@ -75,7 +80,7 @@ export const CardModal = () => {
             <Actions.Skeleton />
             ) : (
             cardUrlData && cardImageData && (
-              <Actions data={cardData} ids={id} />
+              <Actions data={cardData} ids={id} role={userRole}/>
             )
           )}
         </div>

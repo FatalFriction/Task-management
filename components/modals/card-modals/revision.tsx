@@ -17,10 +17,12 @@ import { Button } from "@/components/ui/button";
 
 interface RevisionProps {
   data: CardWithList;
+  role?: any;
 };
 
 export const Revision = ({
-  data
+  data,
+  role
 }: RevisionProps) => {
   const params = useParams();
   const queryClient = useQueryClient();
@@ -67,6 +69,11 @@ export const Revision = ({
   });
 
   const onSubmit = (formData: FormData) => {
+    if(role!=="admin"){
+      toast.error("Please Contact the Authorized Superior for edit access")
+      return
+    }
+
     const revision = formData.get("revision") as string;
     const boardId = params.boardId as string;
 
