@@ -187,8 +187,31 @@ export const Actions = ({
           size="inline"
         >
           <FileClock className="h-4 w-4 mr-2" />
-          IN-REVIEW
+          WAITING FOR REVIEW
         </Button>
+        {role !== "admin" ? (
+        <>
+        <Button
+          disabled={true}
+          variant="complete"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Check className="h-4 w-4 mr-2" />
+          COMPLETE
+        </Button>
+        <Button
+          disabled={true}
+          variant="destructive"
+          className="w-full justify-start"
+          size="inline"
+        >
+          <Ban className="h-4 w-4 mr-2" />
+          CANCELLED
+        </Button>
+        </>
+        ) : (
+        <>
         <Button
           onClick={onComplete}
           disabled={isLoadingStatus}
@@ -209,6 +232,8 @@ export const Actions = ({
           <Ban className="h-4 w-4 mr-2" />
           CANCELLED
         </Button>
+        </>
+        )}
       </div>
       <div className="pt-[23px] space-y-4">
         {!data
