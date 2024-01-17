@@ -26,7 +26,6 @@ export const deleteImageBucket = async (id: string): Promise<string> => {
     // Delete each item in the folder
     await Promise.all(
       items.items.map(async (itemRef) => {
-        console.log(itemRef)
         await deleteObject(itemRef);
       })
     );

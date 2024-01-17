@@ -112,7 +112,6 @@ export const ImagesUp = ({
       const url = final as string;
       const cardId = data.id as string;
       const boardId = params.boardId as string;
-      console.log(title)
 
       execute({ url, title, cardId, boardId });
       cardModal.onClose();
