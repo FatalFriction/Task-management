@@ -1,10 +1,12 @@
 "use client";
 
 import { Card } from "@prisma/client";
-import { Draggable } from "@hello-pangea/dnd";
-
 import { useCardModal } from "@/hooks/use-card-modal";
+
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const Draggable = dynamic(() => import("@hello-pangea/dnd").then((mod) => mod.Draggable));
 
 interface CardItemProps {
   data: Card;
@@ -23,6 +25,8 @@ export const CardItem = ({
           return 'bg-[#ca8a04]';
         case 'PENDING':
           return 'bg-[#fde047]';
+          case 'INREVIEW':
+          return 'bg-blue-400';
         case 'COMPLETE':
           return 'bg-[#90ee90]';
         case 'CANCELLED':

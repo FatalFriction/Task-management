@@ -1,13 +1,16 @@
 "use client"
 
+import { ElementRef, useRef, useState } from "react"
 import { updateList } from "@/actions/update-list"
-import { FormInput } from "@/components/form/form-input"
 import { useAction } from "@/hooks/use-action"
 import { List } from "@prisma/client"
-import { ElementRef, useRef, useState } from "react"
 import { toast } from "sonner"
 import { useEventListener } from "usehooks-ts"
-import { ListOptions } from "./list-options"
+import dynamic from "next/dynamic"
+
+const FormInput = dynamic(() => import("@/components/form/form-input").then((mod) => mod.FormInput));
+const ListOptions = dynamic(() => import("./list-options").then((mod) => mod.ListOptions));
+
 
 interface ListHeaderProps {
     data: List,

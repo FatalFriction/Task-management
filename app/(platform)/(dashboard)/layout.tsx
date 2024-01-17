@@ -1,4 +1,7 @@
-import { Navbar } from "./_components/navbar";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("./_components/navbar").then((mod) => mod.Navbar));
+
 
 const DashboardLayout = ({
     children

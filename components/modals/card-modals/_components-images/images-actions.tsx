@@ -50,7 +50,7 @@ export const ImagesActions = ({
   const { download,isInProgress  } = useDownloader();
 
   const onDownload = () => {
-    download(process.env.NEXT_PUBLIC_CORS_URL+data.url, data.title)
+    download(process.env.NEXT_PUBLIC_CORS_URL+data.url, data.title+".png")
   };
   
   return (

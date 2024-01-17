@@ -23,7 +23,8 @@ const buttonVariants = cva(
         gray: "bg-neutral-200 text-secondary-foreground hover:bg-neutral-300",
         pending: "bg-yellow-300 text-secondary-foreground hover:bg-yellow-400",
         complete: "bg-[#90ee90] text-secondary-foreground hover:bg-green-400",
-        draft: "bg-yellow-600 text-secondary-foreground hover:bg-yellow-700"
+        draft: "bg-yellow-600 text-secondary-foreground hover:bg-yellow-700",
+        review: "bg-blue-400 text-secondary-foreground hover:bg-blue-500"
       },
       size: {
         default: "h-10 px-4 py-2",

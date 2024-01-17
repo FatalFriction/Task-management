@@ -1,13 +1,16 @@
 "use client"
 
 import { ListWithCards } from "@/types"
-import { ListHeader } from "./list-header"
 import { ElementRef, useRef, useState } from "react"
-import { CardForm } from "./card-form"
 import { cn } from "@/lib/utils"
-import { CardItem } from "./card-item"
 
-import { Draggable, Droppable } from "@hello-pangea/dnd";
+import dynamic from "next/dynamic"
+
+const Draggable = dynamic(() => import("@hello-pangea/dnd").then((mod) => mod.Draggable));
+const Droppable = dynamic(() => import("@hello-pangea/dnd").then((mod) => mod.Droppable));
+const CardItem = dynamic(() => import("./card-item").then((mod) => mod.CardItem));
+const CardForm = dynamic(() => import("./card-form").then((mod) => mod.CardForm));
+const ListHeader = dynamic(() => import("./list-header").then((mod) => mod.ListHeader));
 
 interface ListItemProps {
     data: ListWithCards,

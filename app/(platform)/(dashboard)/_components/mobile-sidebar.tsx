@@ -5,10 +5,13 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
 
-import { Sidebar } from "./sidebar";
+import dynamic from "next/dynamic";
+
+const Sidebar = dynamic(() => import("./sidebar").then((mod) => mod.Sidebar));
+const Sheet = dynamic(() => import("@/components/ui/sheet").then((mod) => mod.Sheet));
+const SheetContent = dynamic(() => import("@/components/ui/sheet").then((mod) => mod.SheetContent));
+const Button = dynamic(() => import("@/components/ui/button").then((mod) => mod.Button));
 
 export const MobileSidebar = () => {
   const pathname = usePathname();

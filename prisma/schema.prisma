@@ -45,6 +45,7 @@ enum TaskStatus {
   PENDING
   COMPLETE
   CANCELLED
+  INREVIEW
 }
 
 
@@ -53,6 +54,8 @@ model Card {
   title       String
   order       Int
   description String? @db.Text
+  revision    String? @db.Text
+
   status      TaskStatus
 
   listId      String
