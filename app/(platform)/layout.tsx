@@ -1,10 +1,8 @@
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 
-import dynamic from "next/dynamic";
 import { Toaster } from "sonner";
-
-const ClerkProvider = dynamic(() => import('@clerk/nextjs').then((mod) => mod.ClerkProvider));
 
 const platformLayout = ({
     children
