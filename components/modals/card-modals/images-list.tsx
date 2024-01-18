@@ -47,7 +47,7 @@ export const ImagesList = ({
                     alt={item.card.id}
                     height={100}
                     width={100}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, (max-width: 1560px) 120vw, 35vw"
+                    sizes="(max-width: 768px,max-height: 768px) 35vw"
                     loading="lazy"
                     onClick={() => handleImageClick(item.url)}
                     className="pt-8 xl:py-2.5 cursor-pointer rounded-xl"
