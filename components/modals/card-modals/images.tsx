@@ -114,7 +114,7 @@ export const ImagesUp = ({
       const boardId = params.boardId as string;
 
       execute({ url, title, cardId, boardId });
-      cardModal.onClose();
+      disableEditing();
     }
 
   return (
