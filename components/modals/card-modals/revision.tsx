@@ -1,7 +1,6 @@
 "use client";
 
 import { toast } from "sonner";
-import { PenSquare } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState, useRef, ElementRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -87,7 +86,6 @@ export const Revision = ({
 
   return (
     <div className="flex items-start gap-x-3 w-full pb-4">
-      <PenSquare className="h-5 w-5 mt-0.5 text-neutral-700" />
       <div className="w-full">
         <p className="font-semibold text-neutral-700 mb-2">
           Revision
