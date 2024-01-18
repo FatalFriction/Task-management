@@ -45,8 +45,8 @@ export const ImagesList = ({
                 <Image
                     src={item.url}
                     alt={item.card.id}
-                    height={150}
-                    width={150}
+                    height={100}
+                    width={100}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, (max-width: 1560px) 120vw, 35vw"
                     loading="lazy"
                     onClick={() => handleImageClick(item.url)}
