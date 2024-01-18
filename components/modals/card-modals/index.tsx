@@ -34,6 +34,8 @@ export const CardModal = () => {
   const { data: cardImageData } = useQuery<CardUrlWithCard>({
     queryKey: ["card-images", id],
     queryFn: () => fetcher(`/api/cards/${id}/images`),
+    refetchInterval: 2000,
+    refetchOnWindowFocus: true,
   });
 
   const { data: auditLogsData } = useQuery<AuditLog[]>({
