@@ -29,7 +29,6 @@ export const ImagesActions = ({
   } = useAction(deleteCardUrl, {
     onSuccess: (data) => {
       toast.success(`Images "${data.title}" deleted`);
-      cardModal.onClose();
     },
     onError: (error) => {
       toast.error(error);
