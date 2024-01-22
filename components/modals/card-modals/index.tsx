@@ -15,6 +15,7 @@ import { Activity } from "./activity";
 import { ImagesUp } from "./images";
 import { ImagesList } from "./images-list";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);
@@ -31,10 +32,16 @@ export const CardModal = () => {
     queryFn: () => fetcher(`/api/cards/${id}`),
   });
 
+  const [imageClickResult, setImageClickResult] = useState<number | false>(false);
+
+  const trackData = (data: number|false) => {
+    return setImageClickResult(data)
+  }
+
   const { data: cardImageData } = useQuery<CardUrlWithCard>({
     queryKey: ["card-images", id],
     queryFn: () => fetcher(`/api/cards/${id}/images`),
-    refetchInterval: 2000,
+    refetchInterval: imageClickResult,
     refetchOnWindowFocus: true,
   });
 
@@ -54,7 +61,7 @@ export const CardModal = () => {
       onOpenChange={onClose}
     >
       <DialogContent>
-      <ScrollArea className="h-[550px] px-5 xl:h-full xl:px-0">
+      <ScrollArea className="h-[550px] px-5 xl:h-[850px]">
         {!cardData
           ? <Header.Skeleton />
           : <Header data={cardData} />
@@ -68,7 +75,7 @@ export const CardModal = () => {
               }
               {!cardUrlData
                 ? <ImagesUp.Skeleton />
-                : <ImagesUp data={cardUrlData} ids={id} />
+                : <ImagesUp data={cardUrlData} ids={id} onImageClick={trackData} />
               }
               {!cardImageData
                 ? <ImagesList.Skeleton />

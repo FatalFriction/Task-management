@@ -14,23 +14,23 @@ import { createImages } from "@/actions/create-images";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import { Progress } from "@/components/ui/progress";
-import { useCardModal } from "@/hooks/use-card-modal";
 import Image from "next/image";
 import { CardUrlWithCard } from "@/types";
 
 interface ImagesUpProps {
   data: CardUrlWithCard;
   ids?: string;
+  onImageClick: (data: number|false) => number | false | void;
 };
 
 export const ImagesUp = ({
   data,
-  ids
+  ids,
+  onImageClick
 }: ImagesUpProps) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
-  const cardModal = useCardModal();
 
   const formRef = useRef<ElementRef<"form">>(null);
   
@@ -106,6 +106,14 @@ export const ImagesUp = ({
       
       const final = await uploadImage(file,customFileName, (progress) => {
         setUploadProgress(progress)
+        
+          if(progress===100){
+            console.log(progress + " percents")
+            return onImageClick(2000);
+          }
+            console.log(progress + " percents")
+            return onImageClick(false);
+
       }, ids);
 
       setUploadProgress(0)
