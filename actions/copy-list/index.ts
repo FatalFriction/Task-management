@@ -72,6 +72,7 @@ const handler = async (data:InputType): Promise<ReturnType> => {
             entityId: list.id,
             entityTitle: `${list.title} - Copy`,
             entityType: ENTITY_TYPE.LIST,
+            ListTitle: `${list.title} - Copy`,
             action: ACTION.CREATE,
         })
 
