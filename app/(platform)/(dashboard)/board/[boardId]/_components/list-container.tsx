@@ -147,7 +147,7 @@ export const ListContainer = ({ data, boardId,user }: ListContainerProps) => {
               className="grid grid-cols-1 xl:grid-cols-4 2xl:grid-cols-6 gap-y-6 h-full black overflow-hidden"
             >
               {orderedData.map((list, index) => (
-                <ListItem key={list.id} index={index} data={list} userId={user}/>
+                <ListItem key={list.id} index={index} data={list}/>
               ))}
               {provided.placeholder}
               <ListForm />
