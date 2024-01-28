@@ -4,8 +4,9 @@ import { OrganizationSwitcher, UserButton } from "@clerk/nextjs"
 import { Plus } from "lucide-react"
 import { MobileSidebar } from "./mobile-sidebar"
 import { FormPopover } from "@/components/form/form-popover"
+import { NotificationCard } from "@/components/notification-card"
 
-export const Navbar = () => {
+export const Navbar = ({ userId }: { userId: string }) => {
     return (
         <nav className="fixed z-50 top-0 w-full px-4 h-14 border-b shadow-sm bg-white flex items-center">
             <MobileSidebar />
@@ -24,8 +25,9 @@ export const Navbar = () => {
                     </Button>
                 </FormPopover>
             </div>
-            <div className="ml-auto flex items-center gap-x-2">
-                <OrganizationSwitcher 
+            <div className="ml-auto flex items-center gap-x-4">
+                <NotificationCard ids={userId} className="relative translate-y-[54%] border-gray-950"/>
+                <OrganizationSwitcher
                     hidePersonal
                     afterCreateOrganizationUrl="/organization/:id"
                     afterLeaveOrganizationUrl="/select-org"
