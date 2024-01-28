@@ -15,11 +15,10 @@ const ListHeader = dynamic(() => import("./list-header").then((mod) => mod.ListH
 interface ListItemProps {
     data: ListWithCards,
     index: number,
-    userId: string,
 }
 
 export const ListItem = ({
-    data,index,userId
+    data,index
 }: ListItemProps) => {
     const textareaRef = useRef<ElementRef<"textarea">>(null);
 
@@ -74,6 +73,7 @@ export const ListItem = ({
                         </Droppable>
                         <CardForm
                             listId={data.id}
+                            listTitle={data.title}
                             ref={textareaRef}
                             isEditing={isEditing}
                             enableEditing={enableEditing}

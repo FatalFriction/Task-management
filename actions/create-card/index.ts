@@ -18,7 +18,7 @@ const handler = async (data:InputType): Promise<ReturnType> => {
         }
     }
     
-    const { title,status, boardId,listId } = data
+    const { title,status, boardId,listId,listTitle } = data
     let card;
 
     try {
@@ -60,6 +60,7 @@ const handler = async (data:InputType): Promise<ReturnType> => {
             entityTitle: card.title,
             entityType: ENTITY_TYPE.CARD,
             action: ACTION.CREATE,
+            ListTitle: listTitle,
         })
     } catch (error) {
         return {

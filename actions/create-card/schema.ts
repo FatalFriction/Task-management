@@ -12,4 +12,5 @@ export const CreateCard = z.object({
     status: statusEnum,
     boardId: z.string(),
     listId: z.string(),
+    listTitle: z.string(),
 })

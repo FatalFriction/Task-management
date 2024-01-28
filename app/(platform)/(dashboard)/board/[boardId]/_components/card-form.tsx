@@ -21,6 +21,7 @@ import dynamic from "next/dynamic";
 
 interface CardFormProps {
   listId: string;
+  listTitle: string;
   enableEditing: () => void;
   disableEditing: () => void;
   isEditing: boolean;
@@ -28,6 +29,7 @@ interface CardFormProps {
 
 export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
   listId,
+  listTitle,
   enableEditing,
   disableEditing,
   isEditing,
@@ -67,7 +69,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
     const status = "DRAFT"
     const boardId = params.boardId as string;
 
-    execute({ title,status, listId, boardId });
+    execute({ title,status, listId, boardId,listTitle });
   };
 
   if (isEditing) {
