@@ -20,7 +20,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { id, boardId, ...values } = data;
+  const { id, boardId, ListTitle,...values } = data;
   let card;
 
   try {
@@ -43,8 +43,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: card.id,
       entityType: ENTITY_TYPE.CARD,
       action: ACTION.UPDATE,
+      entityStatus: card.status,
+      ListTitle: ListTitle,
     })
+    
   } catch (error) {
+    console.log(error)
     return {
       error: "Failed to update."
     }

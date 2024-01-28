@@ -79,6 +79,7 @@ export const Revision = ({
     execute({
       id: data.id,
       status: data.status,
+      ListTitle: data.list.title,
       revision,
       boardId,
     })

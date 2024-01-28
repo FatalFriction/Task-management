@@ -15,10 +15,11 @@ const ListHeader = dynamic(() => import("./list-header").then((mod) => mod.ListH
 interface ListItemProps {
     data: ListWithCards,
     index: number,
+    userId: string,
 }
 
 export const ListItem = ({
-    data,index
+    data,index,userId
 }: ListItemProps) => {
     const textareaRef = useRef<ElementRef<"textarea">>(null);
 

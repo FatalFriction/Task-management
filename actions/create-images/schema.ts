@@ -17,4 +17,6 @@ export const CreateImages = z.object({
     }),
     cardId: z.string(),
     boardId: z.string(),
+    ListTitle: z.string(),
+    CardTitle: z.string(),
 })

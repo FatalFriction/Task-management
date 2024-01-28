@@ -20,7 +20,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { id, boardId } = data;
+  const { id, boardId, ListTitle } = data;
   let card;
 
   try {
@@ -40,6 +40,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: card.id,
       entityType: ENTITY_TYPE.CARD,
       action: ACTION.DELETE,
+      ListTitle: ListTitle,
     })
   } catch (error) {
     return {

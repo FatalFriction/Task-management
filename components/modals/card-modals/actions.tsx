@@ -73,6 +73,7 @@ export const Actions = ({
     }
     executeDeleteCard({
       id: data.id,
+      ListTitle: data.list.title,
       boardId,
     });
   };
@@ -94,6 +95,7 @@ export const Actions = ({
     executeStatusCard({
       id: data.id,
       boardId,
+      ListTitle: data.list.title,
       status: "DRAFT",
     });
   };
@@ -102,6 +104,7 @@ export const Actions = ({
     executeStatusCard({
       id: data.id,
       boardId,
+      ListTitle: data.list.title,
       status: "PENDING",
     });
   };
@@ -110,6 +113,7 @@ export const Actions = ({
     executeStatusCard({
       id: data.id,
       boardId,
+      ListTitle: data.list.title,
       status: "COMPLETE",
     });
   };
@@ -118,6 +122,7 @@ export const Actions = ({
     executeStatusCard({
       id: data.id,
       boardId,
+      ListTitle: data.list.title,
       status: "CANCELLED",
     });
   };
@@ -126,6 +131,7 @@ export const Actions = ({
     executeStatusCard({
       id: data.id,
       boardId,
+      ListTitle: data.list.title,
       status: "INREVIEW",
     });
   };

@@ -17,6 +17,7 @@ const ListItem = dynamic(() => import("./list-item").then((mod) => mod.ListItem)
 interface ListContainerProps {
   data: ListWithCards[];
   boardId: string;
+  user: string;
 }
 
 function reorder<T>(list: T[], startIndex: number, endIndex: number) {
@@ -26,7 +27,7 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
   return result;
 }
 
-export const ListContainer = ({ data, boardId }: ListContainerProps) => {
+export const ListContainer = ({ data, boardId,user }: ListContainerProps) => {
   const [orderedData, setOrderedData] = useState(data);
 
   const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
@@ -146,7 +147,7 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
               className="grid grid-cols-1 xl:grid-cols-4 2xl:grid-cols-6 gap-y-6 h-full black overflow-hidden"
             >
               {orderedData.map((list, index) => (
-                <ListItem key={list.id} index={index} data={list} />
+                <ListItem key={list.id} index={index} data={list} userId={user}/>
               ))}
               {provided.placeholder}
               <ListForm />

@@ -20,12 +20,16 @@ import { CardUrlWithCard } from "@/types";
 interface ImagesUpProps {
   data: CardUrlWithCard;
   ids?: string;
+  ListTitle: string;
+  CardTitle: string;
   onImageClick: (data: number|false) => number | false | void;
 };
 
 export const ImagesUp = ({
   data,
   ids,
+  ListTitle,
+  CardTitle,
   onImageClick
 }: ImagesUpProps) => {
 
@@ -121,7 +125,7 @@ export const ImagesUp = ({
       const cardId = data.id as string;
       const boardId = params.boardId as string;
 
-      execute({ url, title, cardId, boardId });
+      execute({ url, title, cardId, boardId, ListTitle,CardTitle });
       disableEditing();
     }
 

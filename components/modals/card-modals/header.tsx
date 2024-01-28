@@ -59,6 +59,7 @@ export const Header = ({
     execute({
       title,
       boardId,
+      ListTitle: data.list.title,
       status: data.status,
       id: data.id,
     });

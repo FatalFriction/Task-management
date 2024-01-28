@@ -21,7 +21,6 @@ export const ImagesActions = ({
   data,
 }: ActionsProps) => {
   const params = useParams();
-  const cardModal = useCardModal();
 
   const { 
     execute: executedeleteCardUrl,
@@ -42,6 +41,7 @@ export const ImagesActions = ({
     executedeleteCardUrl({
       id: data.id,
       cardId: data.card.id,
+      ListTitle: data.title,
       boardId,
     });
   };

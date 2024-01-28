@@ -21,6 +21,7 @@ export const UpdateCard = z.object({
     })
   ),
   status: statusEnum,
+  ListTitle: z.string(),
   revision: z.optional(
     z.string({
       required_error: "Description is required",

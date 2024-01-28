@@ -75,7 +75,7 @@ export const CardModal = () => {
               }
               {!cardUrlData
                 ? <ImagesUp.Skeleton />
-                : <ImagesUp data={cardUrlData} ids={id} onImageClick={trackData} />
+                : <ImagesUp data={cardUrlData} ids={id} onImageClick={trackData} ListTitle={cardData!.list.title} CardTitle={cardData!.title} />
               }
               {!cardImageData
                 ? <ImagesList.Skeleton />

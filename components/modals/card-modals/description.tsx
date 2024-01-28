@@ -73,6 +73,7 @@ export const Description = ({
     execute({
       id: data.id,
       status: data.status,
+      ListTitle: data.list.title,
       description,
       boardId,
     })

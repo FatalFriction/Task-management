@@ -14,7 +14,7 @@ interface BoardIdPageProps {
 const BoardIdPage = async ({
   params,
 }: BoardIdPageProps) => {
-  const { orgId } = auth();
+  const { orgId, userId } = auth();
 
   if (!orgId) {
     redirect("/select-org");
@@ -39,11 +39,13 @@ const BoardIdPage = async ({
     },
   });
 
+
   return (
     <div className="p-4 h-full overflow-x-auto">
       <ListContainer
         boardId={params.boardId}
         data={lists}
+        user={userId}
       />
     </div>
   );

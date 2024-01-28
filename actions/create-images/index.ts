@@ -18,7 +18,7 @@ const handler = async (data:InputType): Promise<ReturnType> => {
         }
     }
     
-    const { url,title,cardId,boardId } = data
+    const { url,title,cardId,boardId,ListTitle,CardTitle } = data
     let cardUrl;
 
     try {
@@ -54,9 +54,11 @@ const handler = async (data:InputType): Promise<ReturnType> => {
 
         await createAuditLog({
             entityId: cardUrl.cardId,
-            entityTitle: cardUrl.title,
+            entityTitle: CardTitle,
             entityType: ENTITY_TYPE.IMAGE,
             action: ACTION.UPLOAD,
+            imageTitle: cardUrl.title,
+            ListTitle: ListTitle,
         })
     
     } catch (error) {
