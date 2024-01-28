@@ -42,7 +42,6 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
                 // Check if the message already exists in the array
                 if (!prevMessages.some((msg) => msg.notification === newMessage.notification)) {
                     const updatedMessages = [...prevMessages, newMessage];
-                    console.log(updatedMessages)
                     localStorage.setItem("notification_messages", JSON.stringify(updatedMessages));
                     return updatedMessages;
                 } else {
