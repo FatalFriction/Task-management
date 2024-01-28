@@ -32,7 +32,7 @@ export const CardItem = ({
         case 'CANCELLED':
           return 'bg-[#f08080]';
         default:
-          return 'white'; // Default color if status doesn't match any case
+          return 'bg-white'; // Default color if status doesn't match any case
       }
     };
   
@@ -41,7 +41,7 @@ export const CardItem = ({
 
     // Use classNames library to conditionally apply classes
     const cardItemClasses = cn(
-      "truncate border-2 border-transparent hover:border-black py-2 px-3 text-sm bg-white rounded-md shadow-sm",
+      "inline-block relative truncate border-2 border-transparent hover:border-black py-2 pl-3 pr-7 text-sm rounded-md shadow-sm",
       backgroundColor // Conditionally apply background color
     );
 
@@ -53,7 +53,7 @@ export const CardItem = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           role="button"
-          onClick={() => cardModal.onOpen(data.id)}
+          onClick={() => {cardModal.onOpen(data.id) }}
           className={cardItemClasses}
         >
           {data.title}
