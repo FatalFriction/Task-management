@@ -19,13 +19,13 @@ export const Navbar = ({ userId }: { userId: string }) => {
                         Create
                     </Button>
                 </FormPopover>
-                <FormPopover>
-                    <Button variant="primary" size="sm" className="rounded-sm block md:hidden h-auto py-1.5 px-2">
+                {/* <FormPopover>
+                    <Button variant="primary" size="sm" className="rounded-sm hidden md:hidden h-auto py-1.5 px-2">
                         <Plus className="h-4 w-4"/>
                     </Button>
-                </FormPopover>
+                </FormPopover> */}
             </div>
-            <div className="ml-auto flex items-center gap-x-4">
+            <div className="lg:ml-auto flex items-center gap-x-4">
                 <NotificationCard ids={userId} className="relative translate-y-[54%] border-gray-950"/>
                 <OrganizationSwitcher
                     hidePersonal
