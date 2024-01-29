@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { FormErrors } from "./form-errors";
 
+import { ChangeEventHandler } from "react";
+
 interface FormTextareaProps {
   id: string;
   label?: string;
@@ -21,7 +23,9 @@ interface FormTextareaProps {
   onClick?: () => void;
   onKeyDown?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
   defaultValue?: string;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement> | undefined;
 };
+
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(({
   id,
@@ -34,6 +38,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>((
   onClick,
   onKeyDown,
   className,
+  onChange,
   defaultValue
 }, ref) => {
   const { pending } = useFormStatus();
@@ -53,6 +58,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>((
           onKeyDown={onKeyDown}
           onBlur={onBlur}
           onClick={onClick}
+          onChange={onChange}
           ref={ref}
           required={required}
           placeholder={placeholder}

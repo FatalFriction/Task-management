@@ -27,6 +27,12 @@ export const Description = ({
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const [DescValue, setDescValue] = useState(data.description || "");
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescValue(e.target.value);
+  };
+
   const formRef = useRef<ElementRef<"form">>(null);
   const textareaRef = useRef<ElementRef<"textarea">>(null);
 
@@ -96,11 +102,12 @@ export const Description = ({
               id="description"
               className="w-full mt-2"
               placeholder="Add a more detailed description"
-              defaultValue={data.description || undefined}
+              defaultValue={DescValue}
+              onChange={handleChange}
               errors={fieldErrors}
               ref={textareaRef}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex w-fit items-center gap-x-2">
               <FormSubmit>
                 Save
               </FormSubmit>
@@ -120,7 +127,7 @@ export const Description = ({
             role="button"
             className="min-h-[78px] bg-neutral-200 text-sm font-medium py-3 px-3.5 rounded-md"
           >
-            {data.description || "Add a more detailed description..."}
+            {DescValue || "Add a more detailed description..."}
           </div>
         )}
       </div>

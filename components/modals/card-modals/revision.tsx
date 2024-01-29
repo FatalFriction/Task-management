@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 
 interface RevisionProps {
   data: CardWithList;
-  role?: any;
+  role?: string;
 };
 
 export const Revision = ({
@@ -27,6 +27,11 @@ export const Revision = ({
   const queryClient = useQueryClient();
 
   const [isEditing, setIsEditing] = useState(false);
+  const [revisionValue, setRevisionValue] = useState(data.revision || "");
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setRevisionValue(e.target.value);
+  };
 
   const formRef = useRef<ElementRef<"form">>(null);
   const textareaRef = useRef<ElementRef<"textarea">>(null);
@@ -101,11 +106,12 @@ export const Revision = ({
               id="revision"
               className="w-full min-h-[220px] mt-2"
               placeholder="Add a more detailed revision"
-              defaultValue={data.revision || undefined}
+              defaultValue={revisionValue}
+              onChange={handleChange}
               errors={fieldErrors}
               ref={textareaRef}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex w-fit items-center gap-x-2">
               <FormSubmit>
                 Save
               </FormSubmit>
@@ -125,7 +131,7 @@ export const Revision = ({
             role="button"
             className="min-h-[220px] max-h-[300px] break-words overflow-hidden w-full bg-neutral-200 text-sm font-medium py-3 px-3.5 rounded-md"
           >
-            {data.revision || "Add a more detailed revision..."}
+            {revisionValue || "Add a more detailed revision..."}
           </div>
         )}
       </div>
