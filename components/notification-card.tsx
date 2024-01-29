@@ -97,7 +97,7 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
                 ) : <BellIcon onClick={handleBellClick} className="cursor-pointer hover:fill-black" />
             ) : (
                 <>
-                    <Card ref={ref} className={cn("w-[420px] translate-x-11", className)} {...props}>
+                    <Card ref={ref} className={cn("w-[300px] -translate-x-12 lg:w-[420px] lg:translate-x-11", className)} {...props}>
                         <CardHeader>
                             <CardTitle>Notifications</CardTitle>
                             <CardDescription>You have {messages.length} unread messages.</CardDescription>
@@ -133,7 +133,7 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
                             </Button>
                         </CardFooter>
                     </Card>
-                    <BellIcon className="relative fill-black" />
+                    <BellIcon className="relative -translate-x-24 lg:-translate-x-0 fill-black" />
                 </>
             )}
         </>
