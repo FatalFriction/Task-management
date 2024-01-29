@@ -9,6 +9,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { getBackgroundColor } from "@/constants/backgroundColor";
+import { useAudioPlayer } from 'react-use-audio-player';
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -20,6 +21,7 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
     const [messages, setMessages] = useState<{ notification: string; createdAt: Date, entityStatus: string }[]>([]);
     
     const ref = useRef<HTMLDivElement>(null);
+    const { load } = useAudioPlayer()
 
     const handleBellClick = () => {
         setIsBellClicked(true);
@@ -43,6 +45,9 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
                 if (!prevMessages.some((msg) => msg.notification === newMessage.notification)) {
                     const updatedMessages = [...prevMessages, newMessage];
                     localStorage.setItem("notification_messages", JSON.stringify(updatedMessages));
+                    load('/multi-pop.mp3', {
+                        autoplay: true
+                      });
                     return updatedMessages;
                 } else {
                     // If the message already exists, return the current state
