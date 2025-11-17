@@ -20,8 +20,8 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
     const [isBellClicked, setIsBellClicked] = useState(false);
     const [messages, setMessages] = useState<{ notification: string; createdAt: Date, entityStatus: string }[]>([]);
     
-    const ref = useRef<HTMLDivElement>(null);
-    const { load } = useAudioPlayer()
+    const ref = useRef<HTMLDivElement | null>(null);
+    const { load } = useAudioPlayer();
 
     const handleBellClick = () => {
         setIsBellClicked(true);
@@ -85,10 +85,9 @@ export function NotificationCard({ className, ids, ...props }: NotificationCardP
         handleServiceWorkerRegistration();
     }, []);
 
-    useOnClickOutside(ref, () => {
-        setIsBellClicked(false);
+    useOnClickOutside(ref as React.RefObject<HTMLElement>, () => {
+    setIsBellClicked(false);
     });
-
     return (
         <>
             {!isBellClicked ? (
