@@ -27,7 +27,8 @@ export const ListOptions = ({
   data,
   onAddCard,
 }: ListOptionsProps) => {
-  const closeRef = useRef<ElementRef<"button">>(null);
+  const closeRef = useRef<HTMLButtonElement | null>(null)
+
 
   const { execute: executeDelete } = useAction(deleteList, {
     onSuccess: (data) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { ImagePlusIcon } from "lucide-react";
-import { useState, useRef, ElementRef } from "react";
+import { useState, useRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -36,7 +36,8 @@ export const ImagesUp = ({
   const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
 
-  const formRef = useRef<ElementRef<"form">>(null);
+  const formRef = useRef<HTMLFormElement | null>(null)
+
   
   const [file, setFile] = useState<File | null>();
   const [uploadProgress, setUploadProgress] = useState<number>(0);
@@ -60,7 +61,8 @@ export const ImagesUp = ({
   };
   
   useEventListener("keydown", onKeyDown);
-  useOnClickOutside(formRef, disableEditing);
+  useOnClickOutside(formRef as React.RefObject<HTMLElement>, disableEditing);
+
   
   const onPaste = (event:React.ClipboardEvent<HTMLDivElement>) => {
     const clipboardData = event.clipboardData || (window as any).clipboardData;

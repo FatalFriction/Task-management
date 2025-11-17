@@ -17,8 +17,9 @@ export const ListForm = () => {
     const Router = useRouter()
 
     const [isEditing, setIsEditing] = useState(false)
-    const formRef = useRef<ElementRef<"form">>(null)
-    const inputRef = useRef<ElementRef<"input">>(null)
+    const formRef = useRef<HTMLFormElement | null>(null)
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
 
     const enableEditing = () => {
         setIsEditing(true)
@@ -49,7 +50,7 @@ export const ListForm = () => {
     }
 
     useEventListener("keydown", onKeyDown)
-    useOnClickOutside(formRef,disableEditing)
+    useOnClickOutside(formRef as React.RefObject<HTMLElement>, disableEditing);
 
     const onSubmit = (formData:FormData) => {
         const title = formData.get("title") as string

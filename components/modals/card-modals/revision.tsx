@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
-import { useState, useRef, ElementRef } from "react";
+import { useState, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
@@ -33,8 +33,10 @@ export const Revision = ({
     setRevisionValue(e.target.value);
   };
 
-  const formRef = useRef<ElementRef<"form">>(null);
-  const textareaRef = useRef<ElementRef<"textarea">>(null);
+  const formRef = useRef<HTMLFormElement | null>(null)
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
 
   const enableEditing = () => {
     setIsEditing(true);
@@ -54,7 +56,8 @@ export const Revision = ({
   };
 
   useEventListener("keydown", onKeyDown);
-  useOnClickOutside(formRef, disableEditing);
+  useOnClickOutside(formRef as React.RefObject<HTMLElement>, disableEditing);
+
 
   const { execute, fieldErrors } = useAction(updateCard, {
     onSuccess: (data) => {

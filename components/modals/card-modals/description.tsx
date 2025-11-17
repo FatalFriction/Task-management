@@ -33,8 +33,10 @@ export const Description = ({
     setDescValue(e.target.value);
   };
 
-  const formRef = useRef<ElementRef<"form">>(null);
-  const textareaRef = useRef<ElementRef<"textarea">>(null);
+  const formRef = useRef<HTMLFormElement | null>(null)
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
 
   const enableEditing = () => {
     setIsEditing(true);
@@ -54,7 +56,7 @@ export const Description = ({
   };
 
   useEventListener("keydown", onKeyDown);
-  useOnClickOutside(formRef, disableEditing);
+  useOnClickOutside(formRef as React.RefObject<HTMLElement>, disableEditing);
 
   const { execute, fieldErrors } = useAction(updateCard, {
     onSuccess: (data) => {

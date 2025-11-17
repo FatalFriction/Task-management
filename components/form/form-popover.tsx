@@ -26,7 +26,8 @@ export const FormPopover = ({
     sideOffset = 0,
 } : FormPopoverProps ) => {
     const router = useRouter();
-    const closeRef = useRef<ElementRef<"button">>(null);
+    const closeRef = useRef<HTMLButtonElement | null>(null)
+
 
     const { execute, fieldErrors } = useAction(createBoard, {
         onSuccess(data) {

@@ -24,8 +24,9 @@ export const ListHeader = ({
     const [title, setTitle] = useState(data.title)
     const [isEditing,setIsEditing] = useState(false)
 
-    const formRef = useRef<ElementRef<"form">>(null)
-    const inputRef = useRef<ElementRef<"input">>(null)
+    const formRef = useRef<HTMLFormElement | null>(null)
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
 
     const enableEditing = () => {
         setIsEditing(true)

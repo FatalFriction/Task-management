@@ -20,7 +20,8 @@ interface ListItemProps {
 export const ListItem = ({
     data,index
 }: ListItemProps) => {
-    const textareaRef = useRef<ElementRef<"textarea">>(null);
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
 
     const [isEditing, setIsEditing] = useState(false);
 

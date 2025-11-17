@@ -40,7 +40,8 @@ export const Header = ({
     }
   });
 
-  const inputRef = useRef<ElementRef<"input">>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null)
+;
 
   const [title, setTitle] = useState(data.title);
 
