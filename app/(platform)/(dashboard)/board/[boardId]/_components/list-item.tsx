@@ -1,7 +1,7 @@
 "use client"
 
 import { ListWithCards } from "@/types"
-import { ElementRef, useRef, useState } from "react"
+import {  useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 import dynamic from "next/dynamic"

@@ -9,7 +9,7 @@ import { useAction } from "@/hooks/use-action";
 import { createBoard } from "@/actions/create-board";
 import { toast } from "sonner";
 import { FormPicker } from "./form-picker";
-import { ElementRef, useRef } from "react";
+import {  useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface FormPopoverProps {

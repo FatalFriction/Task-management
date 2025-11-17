@@ -1,6 +1,6 @@
 "use client"
 
-import { ElementRef, useRef, useState } from "react"
+import {  useRef, useState } from "react"
 import { updateList } from "@/actions/update-list"
 import { useAction } from "@/hooks/use-action"
 import { List } from "@prisma/client"
